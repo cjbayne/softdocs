@@ -7,7 +7,7 @@
 
 example.ipynb
 guide_conda.md
-pandas.ipynb
+guide_pandas.ipynb
 changelog.md
 contributing.md
 conduct.md
