@@ -6,6 +6,7 @@
 :hidden:
 
 example.ipynb
+guide_conda.md
 pandas.ipynb
 changelog.md
 contributing.md
