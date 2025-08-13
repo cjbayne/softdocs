@@ -1,4 +1,4 @@
-# Conda
+# Guide: Conda
 
 ## Contents
 
