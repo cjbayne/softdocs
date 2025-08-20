@@ -13,16 +13,6 @@
 
 ## Create Environment 
 
-### Args
-- `-c, --channel CHANNEL`: Additional channel to search for packages. The default channel_alias is https://conda.anaconda.org/. Channel most recommended is  `conda-forge`.
-- `-f, --file FILE`: Environment definition file (default: environment.yml). requirements.txt file usually comes from pip environment export.
-- `-n, --name ENVIRONMENT`: Name of environment.
-- `-p, --prefix PATH`: Full path to environment location (i.e. prefix).
-- Additional keywords are names of package to install during creation. Common packages include `python`, `spyder`, `jupyter_core`, `matplotlib-base`, and `ipykernel`. These packages can be installed later as well.
-	- To specify the version, append `==VER` with the version number. If the version number is not specified, the newest version will be downloaded.
-
-### Examples
-
 Create environment from file
 
     conda env create -f /path/to/environment.yml
@@ -35,13 +25,15 @@ Create environment from scratch using conda-forge channel and installing latest 
 
     conda create -n myenv -c conda-forge python
 
-## Delete Environment or Packages
-
 ### Args
+- `-c, --channel CHANNEL`: Additional channel to search for packages. The default channel_alias is https://conda.anaconda.org/. Channel most recommended is  `conda-forge`.
+- `-f, --file FILE`: Environment definition file (default: environment.yml). requirements.txt file usually comes from pip environment export.
 - `-n, --name ENVIRONMENT`: Name of environment.
-- `--all`: Remove all packages, i.e., the entire environment.
+- `-p, --prefix PATH`: Full path to environment location (i.e. prefix).
+- Additional keywords are names of package to install during creation. Common packages include `python`, `spyder`, `jupyter_core`, `matplotlib-base`, and `ipykernel`. These packages can be installed later as well.
+	- To specify the version, append `==VER` with the version number. If the version number is not specified, the newest version will be downloaded.
 
-### Examples
+## Delete Environment or Packages
 
 Remove all packages from environment `myenv` and the environment itself
 
@@ -59,6 +51,9 @@ Remove all packages from the environment `myenv` but retain the environment
 
     conda remove -n myenv --all --keep-env
 
+### Args
+- `-n, --name ENVIRONMENT`: Name of environment.
+- `--all`: Remove all packages, i.e., the entire environment.
 
 ## Activate or Deactive Environment 
 
