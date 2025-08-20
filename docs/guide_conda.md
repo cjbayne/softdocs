@@ -57,11 +57,6 @@ Remove all packages from the environment `myenv` but retain the environment
 
 ## Activate or Deactive Environment 
 
-### Args
-- `-f, --file FILE`: Environment definition file (default: environment.yml).
-
-### Examples
-
 Activate environment `myenv` (environment name required)
 
 	conda activate myenv
@@ -72,33 +67,24 @@ Deactivate currently active environment (environment name not required)
 
 ## Export Environment to File
 
-- Export an enviroment for sharing, etc.
-
-### Args
-- `-f, --file FILE`: Environment definition file (default: environment.yml).
-
-### Examples
-
 Export the current environment into a .yml file 
 
 	conda env export -f environment.yml
 
+### Args
+- `-f, --file FILE`: Environment definition file (default: environment.yml).
+
 ## Install Packages
 
-- I always search for a package in Anaconda's repo from conda-forge's channel first: https://anaconda.org/anaconda/repo
-- If it is available but not in conda-forge's channel, I will download it
-- Avoid installing from `pip` as much as possible, but if a package is only available there, install it and check if it works
+- Search for a package in Anaconda's repo: [Anaconda repo](https://anaconda.org/anaconda/repo)
+    - Install from conda-forge channel first if available, if not available then download from source with most downloads
+- Avoid installing using `pip`, but if a package is only available there, install it and verify there are no problems
 
 ## Change Directory to Different Drive in Anaconda Prompt
 
-- If changing the current working directory (cwd) to a different drive in an Anaconda Prompt window, need additional argument.
+Change the current working directory to another drive, the B drive in this case
+
+	cd /d B:
 
 ### Args
-- `/d`: specifies a different drive is going to be used.
-- `PATH`: new absolute path to change the current directory to.
-
-### Examples
-
-Change the cwd from the C drive to a location in the B drive (PATH = B:)
-
-	cd /d PATH
+- `/d PATH`: Change location to a different drive.
