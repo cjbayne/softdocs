@@ -6,6 +6,7 @@
 :hidden:
 
 guide_conda.md
+guide_jupyter.md
 guide_pandas.ipynb
 guide_plotting.ipynb
 guide_pygis.ipynb
