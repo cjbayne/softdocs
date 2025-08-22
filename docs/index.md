@@ -8,6 +8,7 @@
 guide_conda.md
 guide_pandas.ipynb
 guide_plotting.ipynb
+guide_pygis.ipynb
 changelog.md
 contributing.md
 conduct.md
