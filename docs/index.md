@@ -8,8 +8,10 @@
 guide_conda.md
 guide_jupyter.md
 guide_pandas.ipynb
+guide_pathlib.ipynb
 guide_plotting.ipynb
 guide_pyqgis.ipynb
+guide_regex.ipynb
 changelog.md
 contributing.md
 conduct.md
