@@ -225,6 +225,8 @@ Check if path object is a file
 ```python
 # See if the current working directory is a file
 Path.cwd().is_file()
+
+# Returns
 True
 ```
 
