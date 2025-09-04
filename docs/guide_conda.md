@@ -15,15 +15,21 @@
 
 Create environment from file
 
-    conda env create -f /path/to/environment.yml
+```conda
+conda env create -f /path/to/environment.yml
+```
 
 Create environment from file and specify virtual environment location
 
-    conda env create -f /path/to/requirements.txt -p /home/user/envname
+```conda
+conda env create -f /path/to/requirements.txt -p /home/user/envname
+````
 
 Create environment from scratch using conda-forge channel and installing latest Python version
 
-    conda create -n myenv -c conda-forge python
+```conda
+conda create -n myenv -c conda-forge python
+```
 
 ### Args
 - `-c, --channel CHANNEL`: Additional channel to search for packages. The default channel_alias is https://conda.anaconda.org/. Channel most recommended is  `conda-forge`.
@@ -37,19 +43,27 @@ Create environment from scratch using conda-forge channel and installing latest 
 
 Remove all packages from environment `myenv` and the environment itself
 
-    conda remove -n myenv --all
+```conda
+conda remove -n myenv --all
+```
 
 Remove the package 'scipy' from the currently active environment
 
-    conda remove scipy
+```conda
+conda remove scipy
+```
 
 Remove a list of packages from an environment 'myenv'
 
-    conda remove -n myenv scipy curl wheel
+```conda
+conda remove -n myenv scipy curl wheel
+```
 
 Remove all packages from the environment `myenv` but retain the environment
 
-    conda remove -n myenv --all --keep-env
+```conda
+conda remove -n myenv --all --keep-env
+```
 
 ### Args
 - `-n, --name ENVIRONMENT`: Name of environment.
@@ -59,17 +73,23 @@ Remove all packages from the environment `myenv` but retain the environment
 
 Activate environment `myenv` (environment name required)
 
-	conda activate myenv
+```conda
+conda activate myenv
+```
 
 Deactivate currently active environment (environment name not required)
 
-	conda deactivate
+```conda
+conda deactivate
+```
 
 ## Export Environment to File
 
 Export the current environment into a .yml file 
 
-	conda env export -f environment.yml
+```conda
+conda env export -f environment.yml
+```
 
 ### Args
 - `-f, --file FILE`: Environment definition file (default: environment.yml).
@@ -84,7 +104,9 @@ Export the current environment into a .yml file
 
 Change the current working directory to another drive, the B drive in this case
 
-	cd /d B:
+```conda
+cd /d B:
+```
 
 ### Args
 - `/d PATH`: Change location to a different drive.
