@@ -6,7 +6,7 @@ This document is a guide to using the Python's `pathlib` built-in library. It is
 
 - [`pathlib` Common Commands](#pathlib-common-commands)
 - [`Path` Object Components](#path-object-components)
-- [Rename `Path` Objects](#rename-path-objects)
+- [Renaming Objects](#renaming-objects)
 - [Get File Metadata](#get-file-metadata)
 - [Working With Files and Folders](#working-with-files-and-folders)
 
@@ -80,12 +80,13 @@ if not Path().exists():
 
 Create directory
 
-
 ```python
->>> Path().mkdir()
+# Make a directory of the path object
+Path(Path.cwd() / 'new').mkdir()
 ```
-- Creates a directory **only if it does not already exist**.
-- Argument `exist_ok` (default=`False`). If the directory exists, `FileExistsError` raised. If set to `True`, `FileExistsError` is ignored, and the directory is not overwritten
+
+- Creates a directory **only if it does not already exist**
+    - Argument `exist_ok` (default=`False`). If the directory exists, `FileExistsError` raised. If set to `True`, `FileExistsError` is ignored, and the directory is not overwritten
 
 ## `Path` Object Components
 
@@ -93,199 +94,164 @@ The following table shows how to get the components of the path:
 
 `C:\Users\me\py\data.py`
 
-| Path Component | Code            | Output                   | Suggested Variable |
-|--------------- |-----            |-------                   | ------------------ |
-| Full Path      | `str(Path())`   | `C:\Users\me\py\data.py` | `full_path`        |
-| Parent of Path | `Path().parent` | `C:\Users\me\py`         | `parent_path`      |
-| Root           | `Path().anchor` | `C:\`                    | `root`             |
-| File Name      | `Path().name`   | `data.py`                | `filename`         |
-| File Root      | `Path().stem`   | `data`                   | `file_root`        |
-| File Extension | `Path().suffix` | `.py`                    | `ext`            |
+| Path Component | Code            | Output                   |
+|--------------- |-----            |-------                   |
+| Full path      | `str(Path())`   | `C:\Users\me\py\data.py` |
+| Parent of path | `Path().parent` | `C:\Users\me\py`         |
+| Root           | `Path().anchor` | `C:\`                    |
+| File name      | `Path().name`   | `data.py`                |
+| File root      | `Path().stem`   | `data`                   |
+| File extension | `Path().suffix` | `.py`                    |
 
-### Extract Individual Parts of Path
-
-- Returns a tuple containing every folder and filename.
+Extract every individual parts of path
 
 ```python
->>> Path().parts
-```
+# Get every individual part of path
+Path(r'C:\Users\me\py\data.py').parts
 
-**Example:**
-```python
->>> Path(r'C:\Users\me\py\data.py').parts
+# Returns
 ('C:\\', 'Users', 'me', 'py', 'data.py')
 ```
 
-### Get Relative Parts of a Path
+- Returns a tuple containing every folder and filename
 
-- Returns the remaining path relative to another path (can be `Path` object or string).
+Get relative parts of a path
 
 ```python
->>> Path().relative_to()
-```
+# Return the parts after the part passed to relative to
+Path(r'C:\Users\me\py\data.py').relative_to(Path(r'C:\Users\me'))
 
-**Example:**
-```python
->>> Path(r'C:\Users\me\py\data.py').relative_to(Path(r'C:\Users\me')) # Path object
-WindowsPath('py/data.py')
->>> Path(r'C:\Users\me\py\data.py').relative_to(r'C:\Users\me') # string
+# Returns
 WindowsPath('py/data.py')
 ```
 
----
+- Argument in `relative_to()` can be `Path` object or string
 
-## Rename `Path` Objects
+## Renaming Objects
 
-### Rename Parts of `Path` Object
-
-- Change parts of `Path` object.
-- **None of these modifies the actual filename on the system.**
-- **Warning:** Omitting the dot (`'.'`) in `.with_suffix()` raises `ValueError: Invalid suffix ''`.
+Change the file name in the path object only
 
 ```python
-# change filename
->>> Path().with_name('newname.txt')
-# change filename stem
->>> Path().with_stem('newname')
-# change filename extension
->>> Path().with_suffix('.txt') 
-```
+# Change file name from data.py to newname.txt
+Path(r'C:\Users\me\py\data.py').with_name('newname.txt')
 
-**Example:**
-```python
-# change filename
->>> Path(r'C:\Users\me\py\data.py').with_name('newname.txt')
+# Returns
 WindowsPath('C:/Users/me/py/newname.txt')
+```
 
-# change filename stem
->>> Path(r'C:\Users\me\py\data.py').with_stem('newname')
+- This will **NOT** modify the actual files on the system
+
+Change the file root in the path object only
+
+```python
+# Change file root from data to newname
+Path(r'C:\Users\me\py\data.py').with_stem('newname')
+
+# Returns
 WindowsPath('C:/Users/me/py/newname.py')
+```
 
-# change filename extension
->>> Path(r'C:\Users\me\py\data.py').with_suffix('.txt')
+- This will **NOT** modify the actual files on the system
+
+Change the file extension in the path object only
+```python
+# Change file extenstion from .py to .txt
+Path(r'C:\Users\me\py\data.py').with_suffix('.txt')
+
+# Returns
 WindowsPath('C:/Users/me/py/data.txt')
 ```
 
-### Rename Actual Files in the System (Overwrite Prohibited)
+- This will **NOT** modify the actual files on the system
+- **Warning:** Omitting the dot (`'.'`) in `.with_suffix()` raises `ValueError: Invalid suffix ''`
 
-- Renames or moves a file to a new path.
-- Raises `FileExistsError` if the destination file already exists.
+Change the actual file name in the system (overwrite is prohibited)
 
 ```python
->>> Path().rename()
-```
+# Rename the actual file from data.py to test.py (keep the same location)
+Path(r'C:\Users\me\py\data.py').rename(Path(r'C:\Users\me\py\test.py'))
 
-**Example:**
-```python
->>> Path(r'C:\Users\me\py\data.py').rename(Path(r'C:\Users\me\py\test.py'))
+# Returns
 WindowsPath('C:/Users/me/py/test.py')
 ```
 
-### Rename Actual Files in the System (Overwrite Permitted)
+- If part of the directory is changed as well, the file will move to the new path
+- Raises `FileExistsError` if the file already exists
 
-- Renames files, overwriting any existing file at the destination.
+Change the actual file name in the system (overwrite is permitted)
 
 ```python
->>> Path().replace()
-```
+# Rename the actual file from data.py to test.py (keep the same location)
+Path(r'C:\Users\me\py\data.py').replace(r'C:\Users\me\py\test.py')
 
-**Example:**
-```python
->>> Path(r'C:\Users\me\py\data.py').replace(r'C:\Users\me\py\test.py')
+# Returns
 WindowsPath('C:/Users/me/py/test.py')
 ```
 
----
+- File is renamed and any existing file at the destination is overwritten
 
 ## Get File Metadata
 
-### Get File Creation Date
+Get file creation date
 
 ```python
->>> from datetime import datetime
->>> datetime.fromtimestamp(Path().lstat().st_mtime)
-```
+# Get the file creation date
+datetime.fromtimestamp(Path().lstat().st_mtime)
 
-**Example:**
-```python
->>> datetime.fromtimestamp(Path().lstat().st_mtime)
+# Returns
 datetime.datetime(2025, 1, 28, 13, 28, 46, 216162)
->>> print(datetime.fromtimestamp(Path().lstat().st_mtime))
-'2025-01-28 13:28:46.216162'
 ```
 
----
+- Requires datetime import `from datetime import datetime`
+- Pass through `print()` show in human readable version > `'2025-01-28 13:28:46.216162'`
+
 
 ## Working with Files and Folders
 
-### Check If Path Object is Directory
-
-- Return `True` if path points to a directory, `False` if it is another kind of file
+Check if path object is a directory
 
 ```python
->>> Path().is_dir()
-```
+# See if the current working directory is a directory
+Path.cwd().is_dir()
 
-**Example:**
-```python
->>> Path.cwd().is_dir()
+# Returns
 True
 ```
 
-### Check If Path Object is File
+- Return `True` if path points to a directory, `False` if it is not
 
-- Return `True` if path points to a directory, `False` if it is another kind of file
+Check if path object is a file
 
 ```python
->>> Path().is_file()
-```
-
-**Example:**
-```python
->>> Path.cwd().is_file()
+# See if the current working directory is a file
+Path.cwd().is_file()
 True
 ```
 
-### Get All Folders and Files in Directory (Include Subdirectories)
+- Return `True` if path points to a file, `False` if it is not
 
-- Creates a generator object with all folder and file paths in directory, including subdirectories.
-- Common to use list comprehension to iterate over generator object.
-
-```python
->>> Path().glob('**/*')
-```
-
-**Example:**
-```python
-# return all folder and file paths in directory, includes subdirectories
->>> [x for x in Path.cwd().glob('**/*')]
-
-# return all file paths that begin with the string 'pandas' in the cwd's subfolder named '.ipynb'
->>> Path.cwd().glob('.ipynb/pandas*')
-
-# return all file paths with extension '.py' in cwd's subfolder named '.ipynb'
->>> Path.cwd().glob('.ipynb/*.py')
-# use .rglob() if there are multiple folders with the same name and/or are deeper than the first subfolder 
->>> Path.cwd().rglob('.ipynb/*.py')
-```
-
-### Get All Folders and Files in Directory (Not Including Subdirectories)
-
-- Creates a generator object with all folder and file paths in directory, not including subdirectories.
-- Common to use list comprehension to iterate over generator object.
+Get all folders and files in directory (include subdirectories)
 
 ```python
->>> Path().iterdir()
+# Return a list of every file and folder in a directory, include subdirectory content
+[x for x in Path.cwd().glob('**/*')]
 ```
 
-**Example:**
+- Creates a generator object with all folder and file paths in directory, including subdirectories
+- Common to use list comprehension to iterate over generator object
+- To return a list with only files or folders that begins with a string (e.g., `pandas`), replace `.glob('**/*')` with `.glob('**/pandas*')` 
+    - The `*` after `pandas` means any other string can follow this
+- To return a list with only files that end with a certain extension (e.g. `.py`), replace `.glob('**/*')` with `.glob('**/*.py')` 
+- To return a list with only files that end with a certain extension in a direct subdirectory (e.g. `.py` files in directory `docs`), replace `.glob('**/*')` with `.glob('docs/*.py')`
+
+Get all folders and files in directory (exclude subdirectories)
+
 ```python
-# return all folder and file paths in directory, does not include subdirectories
->>> [x for x in Path.cwd().iterdir()]
-
-# return all subfolder paths only in directory
->>> [x for x in Path.cwd().iterdir() if x.is_dir()]
-
-# return all file paths in directory
->> [x for x in Path.cwd().iterdir() if x.is_file()]
+# Return a list of every file and folder in a directory, exclude subdirectory contents
+[x for x in Path.cwd().iterdir()]
 ```
+
+- Creates a generator object with all folder and file paths in directory, not including subdirectories
+- Common to use list comprehension to iterate over generator object
+- Add `if x.is_dir()` at the end to only return folders
+- Add `if x.is_file()` at the end to only return files
