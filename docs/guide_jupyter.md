@@ -1,5 +1,26 @@
 # Guide to Jupyter
 
+## Convert Jupyter notebook to another file format
+
+Convert Jupyter notebook to html
+
+    ```
+    jupyter nbconvert --to html .ipynb
+    ```
+
+Convert Jupyter notebook to markdown
+
+    ```
+    jupyter nbconvert --to markdown .ipynb 
+    ```
+
+### Args
+
+- Replace .ipynb with the name of the Jupyter notebook
+- `--output-dir DIR`: change output location
+- `--output FILENAME`: change name of file
+- `--no-input`: do not export any code used
+
 ## Change Jupyter's default start directory
 
 * Right-click Start Menu icon > More > Open file location
@@ -21,7 +42,7 @@ https://stackoverflow.com/questions/34818723/export-notebook-to-pdf-without-code
 
 * Activate relevant conda environment and enter command
 conda activate [ENV]
-jupyter nbconvert --no-input --to html [FULLPATH.ipynb]
+jupyter nbconvert  --to html [FULLPATH.ipynb]
 
 - Change output location (default is same location as .ipynb)
 --output-dir
