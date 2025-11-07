@@ -111,3 +111,7 @@ For virtual environments, copy and paste the following into the shortcut dialogu
 - Can also add --ip XXX.X.X.X --port XXXX
 
 * To change the default starting location, follow the steps above
+
+## Convert Jupyter Notebook to Markdown File
+
+ jupyter nbconvert my_notebook.ipynb --to markdown --output output.md
