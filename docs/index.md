@@ -10,6 +10,7 @@ guide_jupyter.md
 guide_pandas.ipynb
 guide_pathlib.md
 guide_plotting.ipynb
+guide_power_bi.md
 guide_pyqgis.ipynb
 guide_regex.ipynb
 changelog.md
