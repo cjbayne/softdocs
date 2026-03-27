@@ -1,4 +1,4 @@
-# Guide to Pathlib
+# Guide to Python library `pathlib`
 
 This document is a guide to using the Python"s `pathlib` built-in library. It is a "better" alternative to the `os` built-in library.
 
