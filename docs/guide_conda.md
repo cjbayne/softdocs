@@ -1,16 +1,5 @@
 # Guide to Conda
 
-## Contents
-
-- [Create Environment](#create-environment)
-- [Delete Environment or Packages](#delete-environment-or-packages)
-- [Activate or Deactive Environment ](#activate-or-deactive-environment)
-- [Export Environment to File](#export-environment-to-file)
-- [Install Packages](#install-packages)
-- [Change Directory to Different Drive in Anaconda Prompt](#change-directory-to-different-drive-in-anaconda-prompt)
-
----
-
 ## Create Environment 
 
 Create environment from file
