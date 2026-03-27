@@ -34,3 +34,54 @@ order_column_name = Table.AddColumn(
 References
 
 - [Power BI - Custom Sorting in 3 Easy Steps!](https://www.youtube.com/watch?v=4xapOrfLvbg)
+
+## Set the color of categories using a custom color schema
+
+- In `Report view` ribbon, select `New table`.
+- Use the following M code to create a new table containing custom color schema:
+    - `Internal_Color_Column_Name`: replace `Column_Name` with the column's name.
+    - `Value1`: replace with the actual value in the column, repeat for all rows.
+    - Change the color codes as neeeded.
+
+```M
+Internal_Color_Column_Name = 
+DATATABLE(
+    "Category", STRING,
+    "ColorHex", STRING,
+    {
+        {"Value1", "#C00000"},
+        {"Value2", "#F0BD26"},
+        {"Value3", "#1A4566"},
+        {"Value4", "#548235"},
+        {"Value5", "#A6A6A6"}  // default gray
+    }
+)
+```
+
+- A measure is needed to be used to set the colors.
+- Create a new measure in a table, preferably in one containing measures only.
+- Use the following M code to create a the color schema assignment measure:
+    - `Color_Assignment_Column_Name`: replace `Column_Name` with the column's name.
+    - `TABLE`: replace with the table's name.
+    - `COLUMN_NAME`: replace with the column to be sorted.
+    - `Internal_Color_Column_Name`: replace `Column_Name` with the column's name.
+
+```M
+Color_Assignment_SAFER_Status = 
+VAR Cat = SELECTEDVALUE( TABLE[COLUMN_NAME] )
+RETURN
+COALESCE(
+    LOOKUPVALUE( 'Internal_Color_Column_Name'[ColorHex],
+                 'Internal_Color_Column_Name'[Category], Cat),
+    // Assign a fallback color if value not found
+    "#B3B3B3"
+)
+```
+
+- Set the colors in the visualization.
+- Select the visualization > in `Visualizations` pane, select `Format your visual`.
+- Column charts:
+    - Select `Visual`, select `Columns`, select `Color`, select `Conditional formatting` button.
+    - Set `Format style` to `Field value`, set `What field should we base this on?` to the measure.
+- Map:
+    - Select `Visual`, select `Bubbles`, select `Color`, have to manually set each color.
